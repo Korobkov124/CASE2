@@ -1,0 +1,131 @@
+#root{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.auth-page {
+    width: 90%;
+    height: 60%;
+    max-width: 1200px;
+    max-height: 1000px;
+    background-color: var(--card-bg);
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+
+.auth-illustration {
+    background: linear-gradient(
+        120deg,
+        #2C3E50 0%,
+        #354061 50%,
+        #1d4f88 120%
+    );
+    background-size: 300% 300%;
+    animation: movingGradient 10s ease-in-out infinite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+
+    color: rgba(255, 255, 255, 0.623);
+    text-align: center;
+    font-size: 1.4rem;         
+    font-weight: 600;          
+    letter-spacing: 1px;
+    line-height: 1.4;
+    user-select: none;
+}
+
+.signUp {
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    color: var(--text-light);
+}
+
+.signUp h3 {
+    margin: 0;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.signUp > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.signUp input {
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--input-bg);
+    color: var(--text-light);
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.signUp input:focus {
+    outline: none;
+    background-color: #4A6B82;
+    box-shadow: 0 0 0 3px var(--accent-hover);
+}
+
+.signUp button {
+    padding: 14px;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.signUp button:hover {
+    transform: translateY(-2px);
+    background-color: var(--accent-hover);
+}
+
+@media (max-width: 768px) {
+    .auth-page {
+        grid-template-columns: 1fr;
+        justify-content: center;
+    }
+    .auth-illustration {
+        display: none;
+    }
+}
+
+@keyframes movingGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 50% 50%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75%{
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
