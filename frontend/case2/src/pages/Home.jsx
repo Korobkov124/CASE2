@@ -1,5 +1,16 @@
+import ElectrolyzerSVG from "../components/ElectrolyzerSVG";
+import "../Home.css"
+
 function Home() {
-    return <h1>Homepage</h1>
+    return (
+        <div className="elDiv">
+            <h1>Модель электролизера</h1>
+            <div>
+                <ElectrolyzerSVG />
+            </div>
+        </div>
+    )
+
 }
 
 export default Home;
