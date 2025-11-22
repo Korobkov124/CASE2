@@ -8,10 +8,12 @@ async function register(email, password){
     })
     .then(response => {
         if (response.status == 200){
-            return response.json();
+            const data = response.json();
+            return { success: true, data };
         }
         else{
-            return null;
+            const errorData = response.json().catch(() => ({}));
+            return{success: false, code: response.status}
         }
     })   
 }
@@ -26,12 +28,15 @@ async function login(email, password){
     })
     .then(response => {
         if (response.status == 200){
-            return response.json();
+            const data = response.json();
+            return { success: true, data };
         }
         else{
-            return null;
+            const errorData = response.json().catch(() => ({}));
+            return{success: false, code: response.status}
         }
     })
+    .catch((error) => console.error(error))
     return response;
 }
 

@@ -10,13 +10,15 @@ function Login() {
         event.preventDefault();
         setIsLoading(true);
         const response = await login(event.target.email.value, event.target.password.value);
-        if (response == null){
-            alert("ПИПЕЦ");
+        if (response.success){
+            document.cookie = `access_token=${response.accessToken}`;
+            setIsLoading(false);
+            navigate('/');
+        }
+        else{
+            console.error(response);
             return;
         }
-        document.cookie = `access_token=${response.accessToken}`;
-        setIsLoading(false);
-        navigate('/');
     };
 
     return (
