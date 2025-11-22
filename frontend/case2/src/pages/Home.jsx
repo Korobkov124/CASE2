@@ -8,6 +8,17 @@ function Home() {
             <div>
                 <ElectrolyzerSVG />
             </div>
+            <div className="Inputs">
+                <input type="range"></input>
+                <input type="range"></input>
+                <input type="range"></input>
+            </div>
+            <div className="Charts">
+            { /* TODO: Илюха компонент графиков вот тут*/ }
+            </div>
+            <div className="Calc">
+
+            </div>
         </div>
     )
 
