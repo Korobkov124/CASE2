@@ -171,7 +171,6 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
               begin={isEmergency ? "indefinite" : "0s"}
             />
           </path>
-          {/* Частицы тока */}
           {[190, 250, 310, 370].map((cx, i) => (
             <circle
               key={i}
@@ -191,16 +190,13 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
           ))}
         </g>
 
-        {/* Ионы в электролите */}
         <g id="ions">
-          {/* Положительные ионы (движутся к катоду) */}
           <circle cx="200" cy="200" r="3" fill="#3498db" opacity="0.7">
             <animateMotion path="M 0 0 L -50 0" dur="3s" repeatCount="indefinite" />
           </circle>
           <circle cx="250" cy="250" r="2" fill="#3498db" opacity="0.7">
             <animateMotion path="M 0 0 L -50 0" dur="4s" repeatCount="indefinite" />
           </circle>
-          {/* Отрицательные ионы (движутся к аноду) */}
           <circle cx="500" cy="230" r="3" fill="#e74c3c" opacity="0.7">
             <animateMotion path="M 0 0 L 50 0" dur="3.5s" repeatCount="indefinite" />
           </circle>
@@ -209,10 +205,9 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
           </circle>
         </g>
 
-        {/* Аварийное сообщение */}
         {isEmergency && (
           <g transform="translate(300, 200)">
-            <rect
+            <rect 
               x="-100"
               y="-30"
               width="200"
@@ -239,7 +234,6 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
           </g>
         )}
 
-        {/* Параметры */}
         <g id="parameter-controls">
           <g transform="translate(170, 300)" className="highlightable" data-param="current">
             <circle r="20" fill="#3498db" fillOpacity="0.2" stroke="#3498db" strokeWidth="2" />
@@ -251,7 +245,7 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
           </g>
         </g>
       </g>
-      
+
       <style>{`
         @keyframes blink {
           0% { opacity: 1; }
