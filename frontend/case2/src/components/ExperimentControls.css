@@ -1,0 +1,59 @@
+.experiment-controls {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.control-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.start-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.start-btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.pause-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.pause-btn:hover {
+  background-color: #e0a800;
+}
+
+.stop-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.stop-btn:hover {
+  background-color: #c82333;
+}
+
+.btn-icon {
+  font-size: 14px;
+}

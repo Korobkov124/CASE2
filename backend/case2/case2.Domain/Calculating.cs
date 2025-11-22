@@ -12,7 +12,7 @@
         {
             if (currentOutput == 0)
                 throw new ArgumentException("Current output cannot be zero.", nameof(currentOutput));
-            return Usr / (currentOutput * electricEquivalent);
+            return (Usr / (currentOutput * electricEquivalent)) * 100000;
         }
 
         public float currentOutput(int T, int I)

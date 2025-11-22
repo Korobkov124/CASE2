@@ -30,12 +30,26 @@
   min-height: 0;
 }
 
+.Charts {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .Charts .graphics-container {
   align-items: center;
-  height: calc(100% - 2.2rem);
+  height: calc(100% - 4rem);
   display: flex;
   justify-content: center;
   width: 100%;
+  margin-bottom: 1rem;
+}
+
+.controls-container {
+  align-self: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .block-title {
@@ -71,9 +85,59 @@
   font-weight: 500;
 }
 
+/* Improved slider styling */
 .input-group input[type='range'] {
   width: 100%;
-  accent-color: #3498db;
+  height: 8px;
+  -webkit-appearance: none;
+  background: linear-gradient(to right, #34495e, #3498db, #34495e);
+  border-radius: 10px;
+  outline: none;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.input-group input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
+  border: 2px solid white;
+  transition: all 0.2s ease;
+}
+
+.input-group input[type='range']::-webkit-slider-thumb:hover {
+  background: #2980b9;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(52, 152, 219, 1);
+}
+
+.input-group input[type='range']::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #3498db;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
+  border: 2px solid white;
+  transition: all 0.2s ease;
+}
+
+.input-group input[type='range']::-moz-range-thumb:hover {
+  background: #2980b9;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(52, 152, 219, 1);
+}
+
+/* Style for numeric values under sliders */
+.input-group span {
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.25rem;
 }
 
 .result {
