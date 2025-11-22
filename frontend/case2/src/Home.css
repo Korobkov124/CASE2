@@ -63,7 +63,7 @@
   font-weight: 500;
 }
 
-.input-group input[type="range"] {
+.input-group input[type='range'] {
   width: 100%;
   accent-color: #3498db;
 }
@@ -99,20 +99,8 @@
 
 @media (max-width: 768px) {
   .elDiv {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 1fr);
-    height: 90vh;
-    width: 96vw;
-    gap: 1.2rem;
-    padding: 1rem;
-    overflow-y: scroll;
-  }
-
-  .Electrolyzer,
-  .Inputs,
-  .Charts,
-    .Calc {
-    min-height: 180px;
+    width: 95%;
+    max-width: 400px;
   }
 
   .block-title {

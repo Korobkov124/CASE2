@@ -3,7 +3,6 @@ using case2.Application.Common.Interfaces;
 using Supabase.Gotrue;
 using Supabase;
 using case2.Application.Common.Model;
-using case2.Infrastructure.Persistence.Models;
 using case2.Application.Common.DTOs;
 
 namespace case2.Infrastructure.Services
@@ -23,21 +22,11 @@ namespace case2.Infrastructure.Services
             return session is null ? null : MapSession(session);
         }
 
-        public async Task<AuthResult?> SignUpAsync(RegisterDTO registerDTO)
+        public async Task<AuthResult?> SignUpAsync(string email, string password)
         {
             var client = _supabaseClientFactory.Create();
-            Session? session = await client.Auth.SignUp(registerDTO.Email, registerDTO.Password);
-            if (session == null || session.User == null)
-                return null;
-            var user = new UserRecord
-            {
-                Id = session.User.Id!,
-                Name = registerDTO.Name,
-            };
-
-            await client.From<UserRecord>().Insert(new List<UserRecord> { user });
-
-            return MapSession(session);
+            Session? session = await client.Auth.SignUp(email, password);
+            return session is null ? null : MapSession(session);
         }
 
         private AuthResult MapSession(Session session)
