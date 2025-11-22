@@ -1,0 +1,11 @@
+﻿
+
+namespace case2.Application.Common.DTOs
+{
+    public class RegisterDTO
+    {
+        public required string Name { get; set; }
+        public required string Email { get; set; }
+        public required string Password { get; set; }
+    }
+}
