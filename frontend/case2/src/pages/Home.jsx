@@ -1,26 +1,21 @@
-import { useState } from 'react'; // ← обязательно!
+import { useState } from 'react';
 import ElectrolyzerSVG from "../components/ElectrolyzerSVG";
 import "../Home.css";
 
 function Home() {
-  const [temp, setTemp] = useState(960);   // температура, °C
-  const [curr, setCurr] = useState(300);   // ток, А
-
-  // Простая модель расчёта (пример)
-  // Реальные формулы можно заменить позже
+  const [temp, setTemp] = useState(960);
+  const [curr, setCurr] = useState(300);
   const energyConsumption = (8.0 + (temp - 960) * 0.01 + (curr - 300) * 0.005).toFixed(1);
   const currentEfficiency = (95 - Math.abs(temp - 960) * 0.03 - Math.abs(curr - 300) * 0.01).toFixed(1);
-  const clampedEfficiency = Math.max(70, Math.min(98, currentEfficiency)); // ограничим разумные значения
+  const clampedEfficiency = Math.max(70, Math.min(98, currentEfficiency));
 
   return (
     <div className="elDiv">
-      {/* Модель электролизера */}
       <div className="Electrolyzer">
         <h2 className="block-title">Модель электролизера</h2>
         <ElectrolyzerSVG temperature={temp} current={curr} />
       </div>
 
-      {/* Входные параметры */}
       <div className="Inputs">
         <h2 className="block-title">Входные параметры</h2>
         <div className="input-group">
