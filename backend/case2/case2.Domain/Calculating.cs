@@ -5,14 +5,14 @@
         const float Usr = 4.4F;
         const float electricEquivalent = 0.336F;
         const int standardTemp = 950;
-        const int standardCurrentStrength = 170; // в kA
+        const int standardCurrentStrength = 170;
         const float standardCurrentOutput = 90.0F; // в %
 
         public float energyConsumption(float currentOutput)
         {
             if (currentOutput == 0)
                 throw new ArgumentException("Current output cannot be zero.", nameof(currentOutput));
-            return Usr / (currentOutput * electricEquivalent);
+            return (Usr / (currentOutput * electricEquivalent)) * 100000;
         }
 
         public float currentOutput(int T, int I)
