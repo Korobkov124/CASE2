@@ -5,7 +5,7 @@
         const float Usr = 4.4F;
         const float electricEquivalent = 0.336F;
         const int standardTemp = 950;
-        const int standardCurrentStrength = 170; // в kA
+        const int standardCurrentStrength = 170;
         const float standardCurrentOutput = 90.0F; // в %
 
         public float energyConsumption(float currentOutput)

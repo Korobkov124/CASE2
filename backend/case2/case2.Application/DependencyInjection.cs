@@ -10,6 +10,7 @@ namespace case2.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IGraphicService, GraphicService>();
+            services.AddScoped<IExperimentService, ExperimentService>();
             services.AddSingleton<Calculating>();
             return services;
         }
