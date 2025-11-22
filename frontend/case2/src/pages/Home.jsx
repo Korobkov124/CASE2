@@ -22,7 +22,7 @@ function Home() {
           <label>Температура электролита, °C</label>
           <input
             type="range"
-            min="800"
+            min="900"
             max="1000"
             value={temp}
             onChange={(e) => setTemp(Number(e.target.value))}
@@ -30,15 +30,15 @@ function Home() {
           <span>{temp}°C</span>
         </div>
         <div className="input-group">
-          <label>Сила тока, А</label>
+          <label>Сила тока, кА</label>
           <input
             type="range"
-            min="100"
-            max="500"
+            min="160"
+            max="180"
             value={curr}
             onChange={(e) => setCurr(Number(e.target.value))}
           />
-          <span>{curr} А</span>
+          <span>{curr} кА </span>
         </div>
       </div>
       <div className="Charts">
