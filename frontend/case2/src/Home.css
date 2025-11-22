@@ -8,10 +8,12 @@
   background-color: #1b2630;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 1fr 1.5fr;
   gap: 1rem;
   padding: 1rem;
   box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 .Electrolyzer,
@@ -85,7 +87,6 @@
   font-weight: 500;
 }
 
-/* Improved slider styling */
 .input-group input[type='range'] {
   width: 100%;
   height: 8px;
@@ -131,7 +132,6 @@
   box-shadow: 0 0 10px rgba(52, 152, 219, 1);
 }
 
-/* Style for numeric values under sliders */
 .input-group span {
   color: white;
   font-weight: bold;
@@ -184,7 +184,7 @@
   .Inputs,
   .Charts,
     .Calc {
-    min-height: 180px;
+    min-height: 300px;
   }
 
   .block-title {

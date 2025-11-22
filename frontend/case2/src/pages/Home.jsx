@@ -13,7 +13,6 @@ function Home() {
   const [lastEnergyConsumption, setLastEnergyConsumption] = useState(null);
   const [lastCurrentOutput, setLastCurrentOutput] = useState(null);
 
-  // Calculate default values when not running
   const energyConsumption = (
     8.0 +
     (temp - 960) * 0.01 +
@@ -26,17 +25,14 @@ function Home() {
   ).toFixed(1);
   const clampedEfficiency = Math.max(70, Math.min(98, currentEfficiency));
 
-  // Initialize with default values from API on component mount
   useEffect(() => {
     const initializeWithDefaults = async () => {
       try {
-        // Fetch initial values using default parameters
         const response = await GraphicsService.getGraphicParameters(960, 300);
         setLastEnergyConsumption(response.energyConsumption);
         setLastCurrentOutput(response.currentOutput);
       } catch (error) {
         console.error('Error fetching initial values:', error);
-        // Use calculated values as fallback
         setLastEnergyConsumption(energyConsumption);
         setLastCurrentOutput(clampedEfficiency);
       }
@@ -55,21 +51,14 @@ function Home() {
 
   const handleStop = () => {
     setIsRunning(false);
-    // Reset the chart data by changing the key to force remount
     setResetKey((prev) => prev + 1);
   };
 
-  // Update last received values when the API calls are made
-  // For now, I'll simulate the update when running starts
   useEffect(() => {
     if (isRunning) {
-      // In a real implementation, this would be updated when API data is received
-      // The actual values would be passed from the Graphics component
     }
   }, [isRunning, temp, curr]);
 
-  // When the experiment is not running, show the calculated values
-  // When running, show the last received values from API
   const displayEnergyConsumption = isRunning
     ? lastEnergyConsumption || energyConsumption
     : lastEnergyConsumption || energyConsumption;
@@ -79,11 +68,6 @@ function Home() {
 
   return (
     <div className="elDiv">
-      <div className="Electrolyzer">
-        <h2 className="block-title">Модель электролизера</h2>
-        <ElectrolyzerSVG temperature={temp} current={curr} />
-      </div>
-
       <div className="Inputs">
         <h2 className="block-title">Входные параметры</h2>
         <div className="input-group">
@@ -109,6 +93,21 @@ function Home() {
           <span>{curr} кА </span>
         </div>
       </div>
+      <div className="Calc">
+        <h2 className="block-title">Показатели эффективности</h2>
+        <div className="result">
+          <span>Расход энергии:</span>
+          <strong>{displayEnergyConsumption} кВт·ч/кг</strong>
+        </div>
+        <div className="result">
+          <span>Выход по току:</span>
+          <strong>{displayCurrentOutput}%</strong>
+        </div>
+      </div>
+      <div className="Electrolyzer">
+        <h2 className="block-title">Модель электролизера</h2>
+        <ElectrolyzerSVG temperature={temp} current={curr} />
+      </div>
       <div className="Charts">
         <h2 className="block-title">Графики выходных параметров</h2>
         <div className="graphics-container">
@@ -131,17 +130,6 @@ function Home() {
             onPause={handlePause}
             onStop={handleStop}
           />
-        </div>
-      </div>
-      <div className="Calc">
-        <h2 className="block-title">Показатели эффективности</h2>
-        <div className="result">
-          <span>Расход энергии:</span>
-          <strong>{displayEnergyConsumption} кВт·ч/кг</strong>
-        </div>
-        <div className="result">
-          <span>Выход по току:</span>
-          <strong>{displayCurrentOutput}%</strong>
         </div>
       </div>
     </div>
