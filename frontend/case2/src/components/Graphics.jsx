@@ -233,10 +233,14 @@ const Graphics = ({
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          color: 'white', // White legend labels
+        },
       },
       title: {
         display: true,
         text: 'Графики выходных параметров в реальном времени',
+        color: 'white', // White title
       },
     },
     scales: {
@@ -247,10 +251,17 @@ const Graphics = ({
         title: {
           display: true,
           text: 'Расход энергии (кВт·ч/кг)',
+          color: 'white', // White title text
         },
         min: 13000,  // Static minimum for energy consumption
         max: 19000,  // Static maximum for energy consumption
         beginAtZero: false,
+        ticks: {
+          color: 'white', // White tick labels
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)', // Light white grid lines
+        },
       },
       y1: {
         type: 'linear',
@@ -259,19 +270,28 @@ const Graphics = ({
         title: {
           display: true,
           text: 'Выход по току (%)',
+          color: 'white', // White title text
         },
         min: 65,  // Static minimum for current output
         max: 95,  // Static maximum for current output
         beginAtZero: false,
+        ticks: {
+          color: 'white', // White tick labels
+        },
         // grid line settings for the right axis
         grid: {
           drawOnChartArea: false, // Only draw grid lines on the left axis
+          color: 'rgba(255, 255, 255, 0.1)', // Light white grid lines
         },
       },
       x: {
         // Grid lines for the x-axis
         grid: {
           display: true,
+          color: 'rgba(255, 255, 255, 0.1)', // Light white grid lines
+        },
+        ticks: {
+          color: 'white', // White tick labels
         },
       },
     },
