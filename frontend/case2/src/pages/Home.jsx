@@ -52,7 +52,9 @@ function Home() {
       </div>
       <div className="Charts">
         <h2 className="block-title">Графики выходных параметров</h2>
+        <div className="graphics-container">
         <GraphicsExample />
+        </div>
       </div>
       <div className="Calc">
         <h2 className="block-title">Показатели эффективности</h2>
