@@ -8,9 +8,7 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
   }, [temperature]);
 
   const getElectrolyteColor = () => {
-    if (isEmergency) {
-      return { start: "#ff5555", end: "#aa2222" };
-    }
+    if (isEmergency) return { start: "#ff5555", end: "#aa2222" };
     const t = Math.max(940, Math.min(980, temperature));
     const ratio = (t - 940) / 40;
     const r = Math.round(30 + 200 * ratio);
@@ -36,7 +34,10 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
           <stop offset="0%" stopColor={electrolyteStart} stopOpacity={isEmergency ? "0.8" : "0.4"} />
           <stop offset="100%" stopColor={electrolyteEnd} stopOpacity={isEmergency ? "0.6" : "0.2"} />
         </linearGradient>
-
+        <linearGradient id="aluminumGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#b5b6b7" />
+          <stop offset="100%" stopColor="#8a8b8c" />
+        </linearGradient>
         <linearGradient id="cathodeGrad" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#34495e" />
           <stop offset="100%" stopColor="#2c3e50" />
@@ -55,7 +56,6 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
-
         <filter id="emergencyGlow" x="-50%" y="-50%" width="200%" height="200%">
           <feDropShadow dx="0" dy="0" stdDeviation="10" floodColor="#ff0000" floodOpacity="0.8" />
           <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
@@ -88,6 +88,25 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
         rx="20"
         fill="url(#electrolyteGrad)"
       />
+
+      <rect
+        x="35"
+        y="425"
+        width="750"
+        height="50"
+        fill="url(#aluminumGrad)"
+      />
+      <text
+        x="410"
+        y="460"
+        textAnchor="middle"
+        fill="#ffffff"
+        fontSize="30"
+        fontFamily="Arial"
+        opacity="0.8"
+      >
+        Жидкий алюминий
+      </text>
 
       <g id="cathode">
         <rect
@@ -148,28 +167,16 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
         >
           <animate
             attributeName="d"
-            values="
-              M765,300 Q600,280 400,300 T55,300;
-              M765,300 Q600,320 400,300 T55,300;
-              M765,300 Q600,280 400,300 T55,300
-            "
+            values="M765,300 Q600,280 400,300 T55,300;M765,300 Q600,320 400,300 T55,300;M765,300 Q600,280 400,300 T55,300"
             dur="4s"
             repeatCount="indefinite"
             begin={isEmergency ? "indefinite" : "0s"}
           />
         </path>
-
         {[765, 700, 630, 560, 490, 420, 350, 280, 210, 140].map((cx, i) => {
           const cy = 300 + Math.sin(i * 0.5) * 20;
           return (
-            <circle
-              key={i}
-              cx={cx}
-              cy={cy}
-              r="4"
-              fill="#3498db"
-              opacity={isEmergency ? "0.3" : "1"}
-            >
+            <circle key={i} cx={cx} cy={cy} r="4" fill="#3498db" opacity={isEmergency ? "0.3" : "1"}>
               <animateMotion
                 path={`M 0 0 L ${-100 - i * 30} ${Math.cos(i) * 10}`}
                 dur={`${2 + i * 0.3}s`}
@@ -196,24 +203,55 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
         </circle>
       </g>
 
+      <g id="gas-bubbles-anode">
+        {[765, 750, 755, 770].map((cx, i) => (
+          <circle key={i} cx={cx} cy="130" r="4" fill="#ffffff" opacity="0.6">
+            <animate
+              attributeName="cy"
+              from="130"
+              to="100"
+              dur={`${2 + i * 0.5}s`}
+              repeatCount="indefinite"
+            />
+            <animate attributeName="r" values="4;6;4" dur={`${2 + i}s`} repeatCount="indefinite" />
+          </circle>
+        ))}
+      </g>
+
+      <g id="electrolyte-level">
+        <line x1="35" y1="120" x2="785" y2="120" stroke="#ffffff" strokeDasharray="5,5" opacity="0.5" />
+        <text
+          x="410"
+          y="170"
+          textAnchor="middle"
+          fill="#ffffffff"
+          fontSize="30"
+          fontWeight="bold"
+          fontFamily="Arial"
+          opacity="0.8"
+        >
+          t = {temperature}°C
+        </text>
+      </g>
+
       {isEmergency && (
-        <g transform="translate(400, 300)">
+        <g transform="translate(410, 300)">
           <rect
-            x="-100"
-            y="-30"
-            width="200"
-            height="60"
-            rx="10"
+            x="-120"
+            y="-35"
+            width="240"
+            height="70"
+            rx="12"
             fill="#ff0000"
             stroke="#ffffff"
             strokeWidth="2"
           />
           <text
             x="0"
-            y="10"
+            y="12"
             textAnchor="middle"
             fill="#ffffff"
-            fontSize="24"
+            fontSize="26"
             fontFamily="Verdana"
             fontWeight="bold"
             style={{ animation: "blink 1s infinite" }}
@@ -222,21 +260,6 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
           </text>
         </g>
       )}
-
-      <g id="parameter-controls">
-        <g transform="translate(55, 300)" className="highlightable" data-param="current">
-          <circle r="20" fill="#3498db" fillOpacity="0.2" stroke="#3498db" strokeWidth="2" />
-          <text x="0" y="5" textAnchor="middle" fill="#3498db" fontSize="14" fontWeight="bold">
-            I
-          </text>
-        </g>
-        <g transform="translate(400, 470)" className="highlightable" data-param="temperature">
-          <circle r="20" fill="#e67e22" fillOpacity="0.2" stroke="#e67e22" strokeWidth="2" />
-          <text x="0" y="5" textAnchor="middle" fill="#e67e22" fontSize="14" fontWeight="bold">
-            T
-          </text>
-        </g>
-      </g>
 
       <style>{`
         @keyframes blink {
