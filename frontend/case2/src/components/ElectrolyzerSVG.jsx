@@ -7,18 +7,36 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
     setIsEmergency(temperature > 980 || temperature < 940);
   }, [temperature]);
 
+  const getElectrolyteColor = () => {
+    if (isEmergency) {
+      return { start: "#ff5555", end: "#aa2222" };
+    }
+    const t = Math.max(940, Math.min(980, temperature));
+    const ratio = (t - 940) / 40;
+    const r = Math.round(30 + 200 * ratio);
+    const g = Math.round(100 + 100 * (1 - ratio));
+    const b = Math.round(200 - 100 * ratio);
+    return {
+      start: `rgb(${r}, ${g}, ${b})`,
+      end: `rgb(${Math.round(r * 0.7)}, ${Math.round(g * 0.7)}, ${Math.round(b * 0.7)})`
+    };
+  };
+
+  const { start: electrolyteStart, end: electrolyteEnd } = getElectrolyteColor();
+
   return (
     <svg
       width="100%"
       height="100%"
-      viewBox="100 100 600 400"
+      viewBox="10 100 800 400"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <linearGradient id="electrolyteGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#1d6ca8" stopOpacity={isEmergency ? "0.8" : "0.4"} />
-          <stop offset="100%" stopColor="#1d4f88" stopOpacity={isEmergency ? "0.6" : "0.2"} />
+          <stop offset="0%" stopColor={electrolyteStart} stopOpacity={isEmergency ? "0.8" : "0.4"} />
+          <stop offset="100%" stopColor={electrolyteEnd} stopOpacity={isEmergency ? "0.6" : "0.2"} />
         </linearGradient>
+
         <linearGradient id="cathodeGrad" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#34495e" />
           <stop offset="100%" stopColor="#2c3e50" />
@@ -51,9 +69,9 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
       </defs>
 
       <rect
-        x="100"
+        x="10"
         y="100"
-        width="600"
+        width="800"
         height="400"
         rx="30"
         fill="#2c3e50"
@@ -63,31 +81,31 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
       />
 
       <rect
-        x="110"
-        y="150"
-        width="580"
-        height="340"
+        x="35"
+        y="120"
+        width="750"
+        height="360"
         rx="20"
         fill="url(#electrolyteGrad)"
       />
 
       <g id="cathode">
         <rect
-          x="150"
-          y="160"
+          x="35"
+          y="120"
           width="40"
-          height="320"
+          height="360"
           rx="15"
           fill="url(#cathodeGrad)"
           stroke="#ecf0f1"
           strokeWidth="2"
         />
         <text
-          x="170"
+          x="55"
           y="495"
           textAnchor="middle"
           fill="#ecf0f1"
-          fontSize="16"
+          fontSize="20"
           fontFamily="Verdana"
           fontWeight="bold"
         >
@@ -97,21 +115,21 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
 
       <g id="anode">
         <rect
-          x="610"
-          y="160"
+          x="745"
+          y="120"
           width="40"
-          height="320"
+          height="360"
           rx="15"
           fill="url(#anodeGrad)"
           stroke="#ecf0f1"
           strokeWidth="2"
         />
         <text
-          x="630"
+          x="765"
           y="495"
           textAnchor="middle"
           fill="#ecf0f1"
-          fontSize="16"
+          fontSize="20"
           fontFamily="Verdana"
           fontWeight="bold"
         >
@@ -121,7 +139,7 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
 
       <g id="current-flow">
         <path
-          d="M190,300 Q300,280 400,300 T600,300"
+          d="M765,300 Q600,280 400,300 T55,300"
           fill="none"
           stroke="#3498db"
           strokeWidth="3"
@@ -130,31 +148,37 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
         >
           <animate
             attributeName="d"
-            values="M190,300 Q300,280 400,300 T600,300;
-                    M190,300 Q300,320 400,300 T600,300;
-                    M190,300 Q300,280 400,300 T600,300"
+            values="
+              M765,300 Q600,280 400,300 T55,300;
+              M765,300 Q600,320 400,300 T55,300;
+              M765,300 Q600,280 400,300 T55,300
+            "
             dur="4s"
             repeatCount="indefinite"
             begin={isEmergency ? "indefinite" : "0s"}
           />
         </path>
-        {[190, 250, 310, 370].map((cx, i) => (
-          <circle
-            key={i}
-            cx={cx}
-            cy="300"
-            r="4"
-            fill="#3498db"
-            opacity={isEmergency ? "0.3" : "1"}
-          >
-            <animateMotion
-              path="M 0 0 L 410 0"
-              dur={`${2 + i * 0.5}s`}
-              repeatCount="indefinite"
-              begin={isEmergency ? "indefinite" : "0s"}
-            />
-          </circle>
-        ))}
+
+        {[765, 700, 630, 560, 490, 420, 350, 280, 210, 140].map((cx, i) => {
+          const cy = 300 + Math.sin(i * 0.5) * 20;
+          return (
+            <circle
+              key={i}
+              cx={cx}
+              cy={cy}
+              r="4"
+              fill="#3498db"
+              opacity={isEmergency ? "0.3" : "1"}
+            >
+              <animateMotion
+                path={`M 0 0 L ${-100 - i * 30} ${Math.cos(i) * 10}`}
+                dur={`${2 + i * 0.3}s`}
+                repeatCount="indefinite"
+                begin={isEmergency ? "indefinite" : "0s"}
+              />
+            </circle>
+          );
+        })}
       </g>
 
       <g id="ions">
@@ -200,7 +224,7 @@ const ElectrolyzerSVG = ({ temperature = 960, current = 300 }) => {
       )}
 
       <g id="parameter-controls">
-        <g transform="translate(170, 300)" className="highlightable" data-param="current">
+        <g transform="translate(55, 300)" className="highlightable" data-param="current">
           <circle r="20" fill="#3498db" fillOpacity="0.2" stroke="#3498db" strokeWidth="2" />
           <text x="0" y="5" textAnchor="middle" fill="#3498db" fontSize="14" fontWeight="bold">
             I
