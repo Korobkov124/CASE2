@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ElectrolyzerSVG from '../components/ElectrolyzerSVG';
+import GraphicsExample from '../components/Graphics';
 import '../Home.css';
 
 function Home() {
@@ -51,9 +52,7 @@ function Home() {
       </div>
       <div className="Charts">
         <h2 className="block-title">Графики выходных параметров</h2>
-        <p className="placeholder">
-          Зависимость расхода энергии и выхода по току от параметров
-        </p>
+        <GraphicsExample />
       </div>
       <div className="Calc">
         <h2 className="block-title">Показатели эффективности</h2>
