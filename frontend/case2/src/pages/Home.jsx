@@ -1,12 +1,21 @@
 import { useState } from 'react';
-import ElectrolyzerSVG from "../components/ElectrolyzerSVG";
-import "../Home.css";
+import ElectrolyzerSVG from '../components/ElectrolyzerSVG';
+import GraphicsExample from '../components/Graphics';
+import '../Home.css';
 
 function Home() {
   const [temp, setTemp] = useState(960);
   const [curr, setCurr] = useState(300);
-  const energyConsumption = (8.0 + (temp - 960) * 0.01 + (curr - 300) * 0.005).toFixed(1);
-  const currentEfficiency = (95 - Math.abs(temp - 960) * 0.03 - Math.abs(curr - 300) * 0.01).toFixed(1);
+  const energyConsumption = (
+    8.0 +
+    (temp - 960) * 0.01 +
+    (curr - 300) * 0.005
+  ).toFixed(1);
+  const currentEfficiency = (
+    95 -
+    Math.abs(temp - 960) * 0.03 -
+    Math.abs(curr - 300) * 0.01
+  ).toFixed(1);
   const clampedEfficiency = Math.max(70, Math.min(98, currentEfficiency));
 
   return (
@@ -43,9 +52,7 @@ function Home() {
       </div>
       <div className="Charts">
         <h2 className="block-title">Графики выходных параметров</h2>
-        <p className="placeholder">
-          Зависимость расхода энергии и выхода по току от параметров
-        </p>
+        <GraphicsExample />
       </div>
       <div className="Calc">
         <h2 className="block-title">Показатели эффективности</h2>
