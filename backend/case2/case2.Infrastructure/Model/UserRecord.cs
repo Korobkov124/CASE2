@@ -12,8 +12,5 @@ namespace case2.Infrastructure.Persistence.Models
 
         [Column("Name")]
         public string Name { get; set; }
-
-        [Column("RoleId")]
-        public int RoleId { get; set; }
     }
 }

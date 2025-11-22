@@ -18,9 +18,9 @@ namespace case2.Api.Controller
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDTO registerDTO)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest req)
         {
-            AuthResult? authResult = await _authService.SignUpAsync(registerDTO);
+            AuthResult? authResult = await _authService.SignUpAsync(req.Email, req.Password);
             if (authResult == null || authResult.UserId == null)
             {
                 return BadRequest("Registration failed");
